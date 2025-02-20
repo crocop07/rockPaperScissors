@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+      
+        console.log(getComputerChoice());
+
+
+function playGame () {
+
+        let humanScore = 0;
+        let cpuScore = 0;
+
+        for (let rounds = 1; rounds <=5; rounds++){
+            console.log(`Round ${rounds}`);
+        
+            const humanChoice = getHumanChoice();
+            const computerChoice = getComputerChoice();
+            const result = playRound(humanChoice, computerChoice);
+
+            if (result ==="win") {
+                humanScore ++;
+                console.log(`you won ${humanChoice} beats ${computerChoice}`);
+            } else if (result ==="lose"){
+                cpuScore++;
+                console.log(`you lose ${computerChoice} beats ${humanChoice}`);
+            }
+            else if (result === "draw"){
+                console.log(`It's a draw! Both chose ${humanChoice}.`);
+
+            }
+            console.log(`Player: ${humanScore} | Computer: ${cpuScore}`);
+
+            }
+
+
+
+       function playRound(humanChoice, computerChoice) {
+            if (humanChoice === computerChoice) {
+              return  "Its a draw and the score didnt increase.";
+            }
+
+            if (humanChoice === "rock") {
+                if (computerChoice === "scissors") {
+                    
+                    return "win";
+                } else {
+                    return "lose";
+                }
+
+            } else if (humanChoice=== "scissors") {
+                    if (computerChoice === "paper") {
+                        
+                        return "win";
+                    } else {
+                        return "lose";
+                    }
+             } else if (humanChoice==="paper") {
+                    if (computerChoice === "rock") {
+                        return "win";
+                    } else {
+                        return "lose";
+                    }
+                } else {
+                    return "imvalid";
+                }
+
+            }
+
+    }
+
+
+
+        function getHumanChoice(){
+            choice = prompt("Enter your choice: Rock, Paper or Scissors");
+            return choice.toLowerCase();
+            
+        }
+
+
+        function getComputerChoice(){
+          let randomNum = Math.random();
+          
+          if (randomNum <=0.33){
+            return "rock";
+          }
+          else if (randomNum >=0.66) {
+            return "paper";
+          }
+          else {
+            return "scissors";
+          }
+
+        
+        }
+
+        playGame();
+    </script>
+</body>
+</html>
