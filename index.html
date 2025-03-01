@@ -8,10 +8,22 @@
 </head>
 <body>
     <script>
+    const buttonContainer = document.createElement("div");
+     buttonContainer.id="button-container";
 
+    const rockSelect = document.createElement("button");
+    rockSelect.textContent="Rock";
 
+    const paperSelect = document.createElement("button");
+    paperSelect.textContent="Paper";
+
+    const scissorsSelect = document.createElement("button");
+    scissorsSelect.textContent="Scissors";
+
+    buttonContainer.append(rockSelect, paperSelect, scissorsSelect);
+    document.body.appendChild(buttonContainer);
       
-        console.log(getComputerChoice());
+    console.log(getComputerChoice());
 
 
 function playGame () {
@@ -19,8 +31,8 @@ function playGame () {
         let humanScore = 0;
         let cpuScore = 0;
 
-        for (let rounds = 1; rounds <=5; rounds++){
-            console.log(`Round ${rounds}`);
+      
+            
         
             const humanChoice = getHumanChoice();
             const computerChoice = getComputerChoice();
@@ -39,7 +51,7 @@ function playGame () {
             }
             console.log(`Player: ${humanScore} | Computer: ${cpuScore}`);
 
-            }
+            
 
 
 
