@@ -11,6 +11,7 @@
 
 let humanScore = 0;
 let cpuScore = 0;
+let rounds = 0; //number of rounds played
 
     const buttonContainer = document.createElement("div");
      buttonContainer.id="button-container";
@@ -24,12 +25,17 @@ let cpuScore = 0;
     const scissorsSelect = document.createElement("button");
     scissorsSelect.textContent="Scissors";
 
-    buttonContainer.append(rockSelect, paperSelect, scissorsSelect);
+    const resetButton = document.createElement("button");
+    resetButton.textContent = "Reset Game";
+
+
+    buttonContainer.append(rockSelect, paperSelect, scissorsSelect, resetButton);
     document.body.appendChild(buttonContainer);
    
     rockSelect.addEventListener("click", () => playGame("rock"));
     paperSelect.addEventListener("click", () => playGame("paper"));
     scissorsSelect.addEventListener("click", () => playGame("scissors"));
+    resetButton.addEventListener("click", () => resetGame());
 
 
 const scoreContainer = document.createElement("div");
@@ -48,7 +54,21 @@ document.body.appendChild(scoreContainer);
 
 function playGame (choice) {
 
-    console.log(`You chose ${choice}`);
+    if (rounds >=5){
+        if (humanScore > cpuScore) {
+            resetGame();
+            return alert(`you win`);
+        } else if(cpuScore > humanScore) {
+            return alert(`you lose`);
+            resetGame();
+        } else {
+            resetGame();
+            return alert(`draw game`);
+        }
+    
+        
+        return;
+    }
 
     
 
@@ -70,7 +90,8 @@ function playGame (choice) {
                 console.log(`It's a draw! Both chose ${humanChoice}.`);
 
             }
-            console.log(`Player: ${humanScore} | Computer: ${cpuScore}`);
+            rounds++;
+            console.log(`Player: ${humanScore} | Computer: ${cpuScore} | Round: ${rounds}`);
 
             
 
@@ -113,13 +134,6 @@ function playGame (choice) {
 
 
 
-      //  function getHumanChoice(){
-            
-            //return choice.toLowerCase();
-            
-        //}
-
-
         function getComputerChoice(){
           let randomNum = Math.random();
           
@@ -140,7 +154,15 @@ function playGame (choice) {
             playerScoreDisplay.textContent = `Player: ${humanScore} | Computer: ${cpuScore}`;
         }
 
-        playGame();
+        function resetGame(){
+            console.log("triggered");
+            humanScore = 0;
+            cpuScore = 0;
+            rounds = 0;
+            updateScoreDisplay();
+        }
+
+        
     </script>
 </body>
 </html>
