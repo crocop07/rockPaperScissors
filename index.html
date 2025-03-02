@@ -30,6 +30,8 @@ let rounds = 0; //number of rounds played
     const resetButton = document.createElement("button");
     resetButton.textContent = "Reset Game";
 
+ 
+
 
     buttonContainer.append(rockSelect, paperSelect, scissorsSelect, resetButton);
     document.body.appendChild(buttonContainer);
@@ -44,7 +46,14 @@ const scoreContainer = document.createElement("div");
 scoreContainer.id = "score";
 
 const playerScoreDisplay = document.createElement("p");
-scoreContainer.appendChild(playerScoreDisplay);
+
+
+let currentGame = document.createElement("p");
+currentGame.textContent = "Game hasnt started yet";
+    
+
+    scoreContainer.append(playerScoreDisplay, currentGame);
+    
 
 playerScoreDisplay.textContent = `Player: ${humanScore} | Computer: ${cpuScore}`;
 document.body.appendChild(scoreContainer);  
@@ -56,19 +65,20 @@ document.body.appendChild(scoreContainer);
 
 function playGame (choice) {
 
+    rounds++;
+
     if (rounds >=5){
+        let resultMessage="";
         if (humanScore > cpuScore) {
-            resetGame();
-            return alert(`you win`);
+            resultMessage="You Win";
         } else if(cpuScore > humanScore) {
-            return alert(`you lose`);
-            resetGame();
+            resultMessage="You Lose";
         } else {
-            resetGame();
-            return alert(`draw game`);
+            
+            resultMessage="A draw";
         }
-    
-        
+        disableButtons();
+        alert(resultMessage);
         return;
     }
 
@@ -84,15 +94,20 @@ function playGame (choice) {
             if (result ==="win") {
                 humanScore ++;
                 console.log(`you won ${humanChoice} beats ${computerChoice}`);
+                currentGame.textContent = `You Won! You chose: ${humanChoice} which beats: ${computerChoice}`;
+                
             } else if (result ==="lose"){
                 cpuScore++;
                 console.log(`you lose ${computerChoice} beats ${humanChoice}`);
+                currentGame.textContent=`You lose! The cpu chose: ${computerChoice} which beats: ${humanChoice}`;
+                
             }
             else if (result === "draw"){
                 console.log(`It's a draw! Both chose ${humanChoice}.`);
+                currentGame.textContent=`Draw! CPU chose: ${computerChoice} and you chose: ${humanChoice}`
 
             }
-            rounds++;
+            
             console.log(`Player: ${humanScore} | Computer: ${cpuScore} | Round: ${rounds}`);
 
             
@@ -101,7 +116,7 @@ function playGame (choice) {
 
        function playRound(humanChoice, computerChoice) {
             if (humanChoice === computerChoice) {
-              return  "Its a draw and the score didnt increase.";
+              return  "draw";
             }
 
             if (humanChoice === "rock") {
@@ -162,6 +177,19 @@ function playGame (choice) {
             cpuScore = 0;
             rounds = 0;
             updateScoreDisplay();
+            enableButtons();
+        }
+
+        function disableButtons() {
+            rockSelect.disabled = true;
+            paperSelect.disabled = true;
+            scissorsSelect.disabled = true;
+        }
+
+        function enableButtons() {
+            rockSelect.disabled = false;
+            paperSelect.disabled = false;
+            scissorsSelect.disabled = false;
         }
 
         
