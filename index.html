@@ -8,6 +8,10 @@
 </head>
 <body>
     <script>
+
+let humanScore = 0;
+let cpuScore = 0;
+
     const buttonContainer = document.createElement("div");
      buttonContainer.id="button-container";
 
@@ -22,19 +26,36 @@
 
     buttonContainer.append(rockSelect, paperSelect, scissorsSelect);
     document.body.appendChild(buttonContainer);
-      
-    console.log(getComputerChoice());
+   
+    rockSelect.addEventListener("click", () => playGame("rock"));
+    paperSelect.addEventListener("click", () => playGame("paper"));
+    scissorsSelect.addEventListener("click", () => playGame("scissors"));
 
 
-function playGame () {
+const scoreContainer = document.createElement("div");
+scoreContainer.id = "score";
 
-        let humanScore = 0;
-        let cpuScore = 0;
+const playerScoreDisplay = document.createElement("p");
+scoreContainer.appendChild(playerScoreDisplay);
+
+playerScoreDisplay.textContent = `Player: ${humanScore} | Computer: ${cpuScore}`;
+document.body.appendChild(scoreContainer);  
+
+
+
+   
+
+
+function playGame (choice) {
+
+    console.log(`You chose ${choice}`);
+
+    
 
       
             
         
-            const humanChoice = getHumanChoice();
+            const humanChoice = choice;
             const computerChoice = getComputerChoice();
             const result = playRound(humanChoice, computerChoice);
 
@@ -86,16 +107,17 @@ function playGame () {
                 }
 
             }
+            updateScoreDisplay();
 
     }
 
 
 
-        function getHumanChoice(){
-            choice = prompt("Enter your choice: Rock, Paper or Scissors");
-            return choice.toLowerCase();
+      //  function getHumanChoice(){
             
-        }
+            //return choice.toLowerCase();
+            
+        //}
 
 
         function getComputerChoice(){
@@ -112,6 +134,10 @@ function playGame () {
           }
 
         
+        }
+
+        function updateScoreDisplay() {
+            playerScoreDisplay.textContent = `Player: ${humanScore} | Computer: ${cpuScore}`;
         }
 
         playGame();
